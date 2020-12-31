@@ -26,10 +26,12 @@
 	@media (prefers-color-scheme: dark) {
 	    /* 操作系统及浏览器支持且用户开启了 Dark Mode */
 	    html {
-		color: #bcbcbc;
-		color: rgba(255,255,255,0.6);
-		background: #111;
+			background: #111;
 	    }
+      p {
+      	color: #bcbcbc;
+		color: rgba(255,255,255,0.6);
+      }
 	}
 	  html:after {
     content: '';
@@ -216,7 +218,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
 </head>
 <body>
-  萌萌哒柠宝宝 <p class="my-face">(●'◡'●)ﾉ♥</p>
+  <p>萌萌哒柠宝宝 <span class="my-face">(●'◡'●)ﾉ♥</span></p>
   <p>来到这个世界已经 <span id="since"></span>
   </p>
 
