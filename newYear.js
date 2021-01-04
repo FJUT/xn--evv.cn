@@ -28,6 +28,7 @@ function write_fire(N) {
   boddie.appendChild(stars[N + 'r']);
   for (i = bits * N; i < bits + bits * N; i++) {
     stars[i] = createDiv('*', 13);
+    stars[i].style.visibility = 'hidden'
     boddie.appendChild(stars[i]);
   }
 }
