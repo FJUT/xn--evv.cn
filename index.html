@@ -27,10 +27,18 @@
     body {
         margin: 0;
         width: 100%;
-        overflow: hidden;
     }
     p {
         padding: 0 8px;
+    }
+
+    div {
+    -webkit-touch-callout:none;
+    -webkit-user-select:none;
+    -khtml-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    user-select:none;
     }
 
 	@media (prefers-color-scheme: dark) {
@@ -44,6 +52,7 @@
       }
 	}
 	html:after {
+        transition: 5s;
         content: '';
         opacity:0;
         background-size: cover;
@@ -220,6 +229,9 @@
           transform: translate(0, 0) rotate(0deg);
       }
   }
+  #canvas {
+      z-index: 99;
+  }
   .player {
     position: absolute;
     display: flex;
@@ -227,7 +239,7 @@
     opacity: .9;
     bottom: 8px;
     width: 100%;
-    z-index: 9;
+    z-index: 999;
   }
   </style>
   <!-- require APlayer -->
@@ -261,7 +273,7 @@
         if (strBg) {
             injectCSS("\
                 html {background-color:#bb2220;}\
-                html:after {background-image:url("+strBg+");transition: 5s;}\
+                html:after {background-image:url("+strBg+");}\
                 p {color:#fdcca4;}\
             ")
         }
@@ -300,9 +312,10 @@
                 }
             }, 89)
 
+            var opacity = strBg ? '1' : '.5'
             var bgTimer = setTimeout(function () {
                 bgTimer = null
-                injectCSS('html:after{opacity:1;}')
+                injectCSS('html:after{opacity:'+opacity+';}')
             }, 5000)
 
 
@@ -315,7 +328,7 @@
                         strBg && elPlayer.aplayer.list.hide()
                         if (bgTimer) {
                             clearTimeout(bgTimer)
-                            injectCSS('html:after{opacity:1;}')
+                            injectCSS('html:after{opacity:'+opacity+';}')
                         }
                     }, 600)
                     clearInterval(timerPlayer)
