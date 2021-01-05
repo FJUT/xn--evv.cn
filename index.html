@@ -24,6 +24,14 @@
 	    color: #555;
     	background: #ececec;
 	}
+    body {
+        margin: 0;
+        width: 100%;
+        overflow: hidden;
+    }
+    p {
+        padding: 0 8px;
+    }
 
 	@media (prefers-color-scheme: dark) {
 	    /* 操作系统及浏览器支持且用户开启了 Dark Mode */
@@ -37,6 +45,7 @@
 	}
 	html:after {
         content: '';
+        opacity:0;
         background-size: cover;
         background-repeat: repeat;
         background-position-y: bottom;
@@ -47,7 +56,6 @@
         left: 0;
         bottom: 0;
         right: 0;
-        opacity: .5;
         max-width: 600px;
         margin: 0 auto;
     }
@@ -217,9 +225,8 @@
     display: flex;
     justify-content: center;
     opacity: .9;
-    bottom: 18px;
+    bottom: 8px;
     width: 100%;
-    margin: -8px;
     z-index: 9;
   }
   </style>
@@ -244,15 +251,19 @@
   <script>
       (function(){
         var arrBg = location.hash.split('bg=')
-        var strBg = arrBg[1] && arrBg[1].indexOf('https://t.kainy.cn/') === 0 ? arrBg[1] : ''
-        if (strBg) {
+        var strBg = arrBg[1] && arrBg[1].indexOf('https://t.kainy.cn/') === 0 ? arrBg[1] : '';
+        var injectCSS = function (css) {
             var style = document.createElement("style");
             style.type = "text/css";
-            style.innerHTML="\
+            style.innerHTML=css;
+            document.getElementsByTagName("head")[0].appendChild(style); 
+        };
+        if (strBg) {
+            injectCSS("\
                 html {background-color:#bb2220;}\
-                html:after {background-image:url("+strBg+");opacity:1;}\
-                p {color:#fdcca4;}"
-            document.getElementsByTagName("head").item(0).appendChild(style); 
+                html:after {background-image:url("+strBg+");transition: 5s;}\
+                p {color:#fdcca4;}\
+            ")
         }
         function show_date_time () {
             window.setTimeout(function () {
@@ -289,13 +300,24 @@
                 }
             }, 89)
 
+            var bgTimer = setTimeout(function () {
+                bgTimer = null
+                injectCSS('html:after{opacity:1;}')
+            }, 5000)
+
 
             var elPlayer = document.querySelector('meting-js')
             var timerPlayer = setInterval(function() {
                 // console.warn(elPlayer.aplayer)
                 if((elPlayer.aplayer)) {
                     window.APlayer = elPlayer.aplayer
-                    strBg && elPlayer.aplayer.list.hide()
+                    setTimeout(function () {
+                        strBg && elPlayer.aplayer.list.hide()
+                        if (bgTimer) {
+                            clearTimeout(bgTimer)
+                            injectCSS('html:after{opacity:1;}')
+                        }
+                    }, 600)
                     clearInterval(timerPlayer)
                 }
             }, 100)
