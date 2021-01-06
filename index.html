@@ -271,9 +271,13 @@
             document.getElementsByTagName("head")[0].appendChild(style); 
         };
         if (strBg) {
+            var rate6 = 375/667
+            var rateX = 375/812
+            var rateThis = window.screen.width / window.screen.height
+            var rate = (rateThis - rateX) / (rate6 - rateX)
             injectCSS("\
                 html {background-color:#bb2220;}\
-                html:after {background-image:url("+strBg+");margin-bottom: -30px;}\
+                html:after {background-image:url("+strBg+");margin-bottom: -" + rate*30 + "px;}\
                 p {color:#fdcca4;}\
             ")
         }
