@@ -273,7 +273,12 @@
         if (strBg) {
             var rate6 = 375/667
             var rateX = 375/812
-            var rateThis = window.screen.width / window.screen.height
+            var w = window.innerWidth || window.screen.availWidth
+            var h = window.innerHeight || window.screen.availHeight
+            // alert(window.screen.availHeight)
+            // alert(window.screen.height)
+            // alert(window.innerHeight)
+            var rateThis = w / h
             var rate = (rateThis - rateX) / (rate6 - rateX)
             injectCSS("\
                 html {background-color:#bb2220;}\
