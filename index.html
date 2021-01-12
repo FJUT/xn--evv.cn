@@ -58,7 +58,6 @@
         background-size: cover;
         background-repeat: repeat;
         background-position-y: bottom;
-        background-image: url(https://cdn.jsdelivr.net/gh/FJUT/xn--evv.cn@latest/%E6%9F%A0.gif);
         position: fixed;
         z-index: -1;
         top: 0;
@@ -285,6 +284,8 @@
                 html:after {background-image:url("+strBg+");margin-bottom: -" + rate*30 + "px;}\
                 p {color:#fdcca4;}\
             ")
+        } else {
+            injectCSS("html:after {background-image: url(https://cdn.jsdelivr.net/gh/FJUT/xn--evv.cn@latest/%E6%9F%A0.gif);}")
         }
         function show_date_time () {
             window.setTimeout(function () {
@@ -310,11 +311,11 @@
                 var src= [
                     'https://kainy.cn/js/common.js'
                 ];
+                strBg && src.push('https://cdn.jsdelivr.net/gh/FJUT/xn--evv.cn@latest/newYear.min.js')
                 if (location.search.indexOf('env=miniprogram') > 0) {
                     src.push('https://res.wx.qq.com/open/js/jweixin-1.3.2.js');
                     src.push('https://cdn.jsdelivr.net/gh/kainy/js.org@latest/miniprograms/KSK/webviewSDK.min.js')
                 }
-                strBg && src.push('https://cdn.jsdelivr.net/gh/FJUT/xn--evv.cn@latest/newYear.min.js')
                 for(var i= src.length; i> 0; i--){
                 var c = document.createElement('script'); 
                 c.type = 'text/javascript';
@@ -324,30 +325,30 @@
                 h.parentNode.insertBefore(c, h);
                 }
             }, 89)
-
-            var opacity = strBg ? '1' : '.5'
-            var bgTimer = setTimeout(function () {
-                bgTimer = null
-                injectCSS('html:after{opacity:'+opacity+';}')
-            }, 5000)
-
-
-            var elPlayer = document.querySelector('meting-js')
-            var timerPlayer = setInterval(function() {
-                // console.warn(elPlayer.aplayer)
-                if((elPlayer.aplayer)) {
-                    window.APlayer = elPlayer.aplayer
-                    setTimeout(function () {
-                        strBg && elPlayer.aplayer.list.hide()
-                        if (bgTimer) {
-                            clearTimeout(bgTimer)
-                            injectCSS('html:after{opacity:'+opacity+';}')
-                        }
-                    }, 600)
-                    clearInterval(timerPlayer)
-                }
-            }, 100)
         })
+
+        var opacity = strBg ? '1' : '.5'
+        var bgTimer = setTimeout(function () {
+            bgTimer = null
+            injectCSS('html:after{opacity:'+opacity+';}')
+        }, 5000)
+
+
+        var elPlayer = document.querySelector('meting-js')
+        var timerPlayer = setInterval(function() {
+            // console.warn(elPlayer.aplayer)
+            if((elPlayer.aplayer)) {
+                window.APlayer = elPlayer.aplayer
+                setTimeout(function () {
+                    strBg && elPlayer.aplayer.list.hide()
+                    if (bgTimer) {
+                        clearTimeout(bgTimer)
+                        injectCSS('html:after{opacity:'+opacity+';}')
+                    }
+                }, 600)
+                clearInterval(timerPlayer)
+            }
+        }, 100)
       })()
   </script>
   <script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
